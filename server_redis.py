@@ -10,13 +10,13 @@ permit_generate = ['127.0.0.1']
 @get('/file_id/<file_id>')
 def send_file(file_id):
     path = r.get(file_id)
-    return static_file(path, root=base_source)
-
+    filename = path.split('/')[-1]
+    return static_file(path, root=base_source, download=filename)
 
 @get('/generate_link/<path:path>')
 def generate_link(path):
     if not request['REMOTE_ADDR'] in permit_generate:
-        abort("permission deny")
+        abort(401, "Sorry, access denied.")
 
     for x in range(10):
         random_id = uuid.uuid4().hex
