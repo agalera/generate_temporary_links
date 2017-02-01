@@ -4,7 +4,6 @@ from bottle import default_app, run, get, response, static_file, abort
 
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 base_source = "/tmp/test/originals/"
-permit_generate = ['127.0.0.1']
 
 
 @get('/file_id/<file_id>')
