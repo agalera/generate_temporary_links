@@ -15,9 +15,6 @@ def send_file(file_id):
 
 @get('/generate_link/<path:path>')
 def generate_link(path):
-    if not request['REMOTE_ADDR'] in permit_generate:
-        abort(401, "Sorry, access denied.")
-
     for x in range(10):
         random_id = uuid.uuid4().hex
         try:
@@ -29,7 +26,7 @@ def generate_link(path):
 
 if __name__ == "__main__":
     print "Debug Mode"
-    run(host='0.0.0.0', port=1234, debug=True, reloader=True)
+    run(host='127.0.0.1', port=1234, debug=True, reloader=True)
 
 #prod: gunicorn -w 3 -k gevent server:app -b 127.0.0.1:1234
 app = default_app()
